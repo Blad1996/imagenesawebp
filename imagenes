@@ -1,0 +1,27 @@
+!pip install pillow
+
+from PIL import Image
+import os
+
+def convert_to_webp(image_path):
+    # Open the image using Pillow
+    image = Image.open(image_path)
+    # Convert the image to WebP format
+    webp_image = image.convert("RGB")
+    # Save the converted image
+    webp_image.save(os.path.splitext(image_path)[0] + ".webp", "WEBP")
+
+def main():
+    # Provide the path to the image directory
+    image_dir = "/content/images"
+    # Get a list of all image files in the directory
+    image_files = [f for f in os.listdir(image_dir) if os.path.isfile(os.path.join(image_dir, f))]
+    
+    for image_file in image_files:
+        # Check if the file is an image (supports popular formats like JPEG, PNG, etc.)
+        if image_file.lower().endswith((".jpeg", ".jpg", ".png", ".bmp")):
+            # Convert the image to WebP format
+            convert_to_webp(os.path.join(image_dir, image_file))
+
+if __name__ == "__main__":
+    main()
